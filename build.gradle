@@ -18,6 +18,7 @@ dependencies {
     compile 'org.apache.tinkerpop:tinkergraph-gremlin:3.1.1-incubating'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
 //    compile 'com.thinkaurelius.titan:titan-all:1.0.0'
+    testCompile 'org.testng:testng:6.9.10'
 }
 
 group = 'org.uirebels.grapheditor'
@@ -27,6 +28,34 @@ mainClassName = 'org.uirebels.grapheditor.JFXGraphEditor'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+test {
+  // enable TestNG support (default is JUnit)
+  useTestNG()
+
+  // explicitly include or exclude tests
+  include 'test/**'
+
+  // show standard out and standard error of the test JVM(s) on the console
+  testLogging.showStandardStreams = true
+
+  // set heap size for the test JVM(s)
+  minHeapSize = "128m"
+  maxHeapSize = "512m"
+
+  // set JVM arguments for the test JVM(s)
+  jvmArgs '-XX:MaxPermSize=256m'
+
+  // listen to events in the test execution lifecycle
+  beforeTest { descriptor ->
+     logger.lifecycle("Running test: " + descriptor)
+  }
+
+  // listen to standard out and standard error of the test JVM(s)
+  onOutput { descriptor, event ->
+     logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+  }
+}
 
 jar {
     archiveName = 'jfx-grapheditor.jar'
