@@ -13,6 +13,21 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java' // where the main code is
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java' // tests for all the main code
+        }
+    }
+}
+
+
 dependencies {
     compile 'org.apache.tinkerpop:gremlin-core:3.1.1-incubating'
     compile 'org.apache.tinkerpop:tinkergraph-gremlin:3.1.1-incubating'
@@ -33,8 +48,9 @@ test {
   // enable TestNG support (default is JUnit)
   useTestNG()
 
-  // explicitly include or exclude tests
-  include 'test/**'
+  testLogging {
+      events "passed", "skipped", "failed", "standardOut", "standardError"
+  }
 
   // show standard out and standard error of the test JVM(s) on the console
   testLogging.showStandardStreams = true

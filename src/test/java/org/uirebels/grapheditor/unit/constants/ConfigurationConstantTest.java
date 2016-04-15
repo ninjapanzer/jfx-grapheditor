@@ -1,7 +1,6 @@
 import org.testng.annotations.*;
-import constants.ConfigurationContstant;
 
-public class ConfigurationContstantTest {
+public class ConfigurationConstantTest {
 
  @BeforeClass
  public void setUp() {
